@@ -4,16 +4,19 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('node-security:server');
+var app = require('../server');
+var debug = require('debug')('mongoEx-1:server');
 var http = require('http');
+//var mongoose = require('../db/db-mongoose');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.OPENSHIFT_NODEJS_PORT || process.env.port || '3000');
 app.set('port', port);
+var ip = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
+app.set('ip', ip);
 
 /**
  * Create HTTP server.
@@ -25,9 +28,28 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+var db = require('../db/db');
+var connectionString = require('../db/secret').url;
+if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
+  connectionString = 'mongodb://' + process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+      process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
+      process.env.OPENSHIFT_MONGODB_DB_HOST + ":" +
+      process.env.OPENSHIFT_MONGODB_DB_PORT + "/" +
+      process.env.OPENSHIFT_APP_NAME;
+
+}
+
+mongoose.connect(connectionString, function (err) {
+  if (err) {
+    console.log("Could not connect to database");
+    console.log(err);
+    return;
+  } else {
+    server.listen(app.get('port'), app.get('ip'));
+    server.on('error', onError);
+    server.on('listening', onListening);
+  }
+});
 
 /**
  * Normalize a port into a number, string, or false.
@@ -59,8 +81,8 @@ function onError(error) {
   }
 
   var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+      ? 'Pipe ' + port
+      : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -84,7 +106,7 @@ function onError(error) {
 function onListening() {
   var addr = server.address();
   var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
+      ? 'pipe ' + addr
+      : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }

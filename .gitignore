@@ -1,3 +1,5 @@
+config/secret.js
+
 ### IntelliJ
 .idea
 *.iml
