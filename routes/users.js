@@ -49,7 +49,7 @@ router.post('/authenticate', function (req, res) {
                         sub: user.userName
                     };
                     var token = jwt.encode(payload, jwtconfig.secret);
-                    res.json({token: 'JWT' + token});
+                    res.json({token: 'JWT ' + token});
                 } else {
                     res.status(401).send({msg: 'Authentication failed. Wrong password'});
                 }

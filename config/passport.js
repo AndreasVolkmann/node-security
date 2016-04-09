@@ -1,13 +1,14 @@
+'use strict';
 var JwtStrategy = require('passport-jwt').Strategy;
 var ExtractJwt = require('passport-jwt').ExtractJwt;
 var jwt = require('jwt-simple');
 
 var User = require('../app/models/user');
-var config = require('./database');
 var jwtconfig = require('./jwtconfig').jwtconfig;
 
 
 module.exports = function (passport) {
+    console.log('Passport');
     var opts = {};
 
     opts.secretOrKey = jwtconfig.secret;
@@ -25,6 +26,6 @@ module.exports = function (passport) {
                 done(null, user);
             }
             else done(null, false, 'User found in token not found');
-        })
-    }))
+        });
+    }));
 };

@@ -5,11 +5,10 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+
 var passport = require('passport');
 var passportConfig = require('./config/passport');
 passportConfig(passport);
-var config = require('./config/database');
-var User = require('./app/models/user');
 var jwt = require('jwt-simple');
 
 var routes = require('./routes/index');
@@ -25,17 +24,22 @@ app.set('view engine', 'hbs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+
 app.use('/api', function (req, res, next) {
-    passport.authenticate('jwt', {session: false}, function(err, user, info) {
-        if (err) { res.status(403).json({message:"Token could not be authenticated",fullError: err}) }
-        if (user) { return next(); }
-        return res.status(403).json({message: "Token could not be authenticated", fullError: info});
+    passport.authenticate('jwt', {session: false}, function (err, user, info) {
+        if (err) {
+            res.status(403).json({mesage: "Token could not be authenticated", fullError: err})
+        }
+        if (user) {
+            return next();
+        }
+        return res.status(403).json({mesage: "Token could not be authenticated", fullError: info});
     })(req, res, next);
 });
 app.use('/api', restApi);
