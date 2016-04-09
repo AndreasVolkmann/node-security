@@ -4,12 +4,8 @@ var User = require('../app/models/user');
 var jwtconfig = require('../config/jwtconfig').jwtconfig;
 var jwt = require('jwt-simple');
 
-/* GET users listing. */
-router.get('/', function (req, res, next) {
-    res.send('respond with a resource');
-});
 
-router.post('/signup', function (req, res, next) {
+router.post('/signup', function (req, res) {
     if (!req.body.userName || !req.body.password) {
         res.json({success: false, msg: 'Please pass name and password'});
     } else {

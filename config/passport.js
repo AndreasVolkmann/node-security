@@ -8,7 +8,6 @@ var jwtconfig = require('./jwtconfig').jwtconfig;
 
 
 module.exports = function (passport) {
-    console.log('Passport');
     var opts = {};
 
     opts.secretOrKey = jwtconfig.secret;
