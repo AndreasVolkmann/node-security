@@ -1,3 +1,5 @@
-/**
- * Created by Av on 09-04-2016.
- */
+var secret = require('./secret');
+
+
+
+module.exports = secret;
