@@ -1,4 +1,3 @@
-
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcryptjs');
@@ -31,7 +30,7 @@ UserSchema.pre('save', function (next) {
                 next();
             });
         });
-    } else  {
+    } else {
         return next();
     }
 });
