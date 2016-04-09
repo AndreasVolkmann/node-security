@@ -7,7 +7,7 @@
 var app = require('../server');
 var debug = require('debug')('node-security:server');
 var http = require('http');
-//var mongoose = require('../db/db-mongoose');
+var mongoose = require('mongoose');
 
 /**
  * Get port from environment and store in Express.
@@ -39,19 +39,19 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
 
 }
 
-server.listen(app.get('port'), app.get('ip'));
-server.on('error', onError);
-server.on('listening', onListening);
-/*
 mongoose.connect(connectionString, function (err) {
     if (err) {
-        console.log("Could not connect to database");
-        console.log(err);
+        debug("Could not connect to database");
+        debug(err);
         return;
     } else {
+        debug('Connected to the database!');
+        server.listen(app.get('port'), app.get('ip'));
+        server.on('error', onError);
+        server.on('listening', onListening);
     }
 });
-*/
+
 
 /**
  * Normalize a port into a number, string, or false.

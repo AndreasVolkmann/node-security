@@ -2,10 +2,12 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var mongoose = require('mongoose');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
 var passport = require('passport');
+var passportConfig = require('./config/passport');
+passportConfig(passport);
 var config = require('./config/database');
 var User = require('./app/models/user');
 var jwt = require('jwt-simple');
@@ -27,11 +29,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(passport.initialize());
 
 app.use('/', routes);
 app.use('/api', restApi);
 app.use('/users', users);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
