@@ -1,0 +1,25 @@
+{
+  "name": "node-security",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "goreRatzete <avolkmann@icloud.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/goreRatzete/node-security",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "firebase": "^2.4.2",
+    "angular": "^1.5.3",
+    "bootstrap": "^3.3.6",
+    "angular-route": "^1.5.3"
+  }
+}

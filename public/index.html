@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app" ng-controller="Main as ctrl">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.css"/>
+    <script src="components/angular/angular.js"></script>
+    <script src="components/angular-route/angular-route.js"></script>
+    <script src='./components/firebase/firebase.js'></script>
+    <script src="javascripts/app.js"></script>
+    <script src="javascripts/ApiFactory.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <span>
+        <h2>Security Seed <span ng-hide="!ctrl.loggedIn" class="h5">Logged in as: {{ctrl.userName}}</span></h2>
+    </span>
+
+    <div class="blockquote-reverse" ng-hide="ctrl.loggedIn">
+        <form class="form-inline">
+            <p>Login
+                <input ng-model="ctrl.userName" class="form-control " type="text" placeholder="User Name"/>
+                <input ng-model="ctrl.password" class="form-control" type="password" placeholder="Password"/>
+            </p>
+            <button class="btn btn-default" ng-click="ctrl.authenticate()">Fire</button>
+        </form>
+        <p></p>
+    </div>
+
+    <div>
+        <p><a href="#/names">Names</a></p>
+        <p><a href="#/hellos">Hellos</a></p>
+    </div>
+
+
+    <div ng-view="">
+
+    </div>
+</div>
+</body>
+</html>

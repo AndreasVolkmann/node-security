@@ -2,7 +2,7 @@
 
 module.exports.jwtconfig = {
     secret: 'globalGeronimo',
-    tokenExpirationTime: 15,
+    tokenExpirationTime: 60 * 20,
     audience: 'http://localhost:3000',
     issuer: 'avo@me.com'
 };
