@@ -8,6 +8,10 @@ var app = angular.module('app', ['ngRoute']).config(['$routeProvider', function 
             templateUrl: 'views/hellos.html',
             controller: 'Hellos as ctrl'
         })
+        .when('/signup', {
+            templateUrl: 'views/signup.html',
+            controller: 'Sign as ctrl'
+        })
         .otherwise({
             redirectTo: '/home'
         })
@@ -44,7 +48,7 @@ app.controller('Main', ['ApiFactory', '$rootScope', function (ApiFactory, $rootS
 
 }]);
 
-app.controller('Names', ['ApiFactory', '$rootScope', function (ApiFactory, $rootScope) {
+app.controller('Names', ['ApiFactory', function (ApiFactory) {
     var self = this;
     
     self.names = [];
@@ -55,7 +59,7 @@ app.controller('Names', ['ApiFactory', '$rootScope', function (ApiFactory, $root
 
     
 }]);
-app.controller('Hellos', ['ApiFactory', '$rootScope', function (ApiFactory, $rootScope) {
+app.controller('Hellos', ['ApiFactory', function (ApiFactory) {
     var self = this;
     
     self.hellos = [];
@@ -63,4 +67,21 @@ app.controller('Hellos', ['ApiFactory', '$rootScope', function (ApiFactory, $roo
     ApiFactory.getHellos(function (data) {
         self.hellos = data;
     })
+}]);
+
+app.controller('Sign', ['ApiFactory', function (ApiFactory) {
+    var self = this;
+
+    self.userName = '';
+    self.password = '';
+
+    self.signup = function () {
+        ApiFactory.signup({userName: self.userName, password: self.password}, function (err, data) {
+            if (err) {
+                console.error(err);
+            } else {
+                console.log(data);
+            }
+        })
+    }
 }]);

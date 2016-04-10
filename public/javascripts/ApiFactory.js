@@ -10,6 +10,14 @@ angular.module('app').factory('ApiFactory', ['$http', '$rootScope', function ($h
             console.log(err);
         });
     };
+    
+    factory.signup = function (user, callback) {
+        $http.post(url + 'users/signup', user).then(function (response) {
+            callback(null, response.data);
+        }, function (err) {
+            callback(err);
+        });
+    };
 
     factory.getNames = function (callback) {
         console.log($rootScope.token);
