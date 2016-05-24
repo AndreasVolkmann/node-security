@@ -10,7 +10,7 @@ angular.module('app').factory('ApiFactory', ['$http', '$rootScope', function ($h
             console.log(err);
         });
     };
-    
+
     factory.signup = function (user, callback) {
         $http.post(url + 'users/signup', user).then(function (response) {
             callback(null, response.data);
@@ -22,23 +22,23 @@ angular.module('app').factory('ApiFactory', ['$http', '$rootScope', function ($h
     factory.getNames = function (callback) {
         console.log($rootScope.token);
         var req = {
-            method: 'GET',
-            url: url + 'api/names',
+            method : 'GET',
+            url    : url + 'api/names',
             headers: {
-                'Authorization' : $rootScope.token
+                'Authorization': $rootScope.token
             }
         };
         $http(req).then(function (response) {
             callback(response.data);
         });
     };
-    
+
     factory.getHellos = function (callback) {
         var req = {
-            method: 'GET',
-            url: url + 'api/hellos',
+            method : 'GET',
+            url    : url + 'api/hellos',
             headers: {
-                'Authorization' : $rootScope.token
+                'Authorization': $rootScope.token
             }
         };
         $http(req).then(function (response) {

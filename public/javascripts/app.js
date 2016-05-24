@@ -2,15 +2,15 @@ var app = angular.module('app', ['ngRoute']).config(['$routeProvider', function 
     $routeProvider
         .when('/names', {
             templateUrl: 'views/names.html',
-            controller: 'Names as ctrl'
+            controller : 'Names as ctrl'
         })
         .when('/hellos', {
             templateUrl: 'views/hellos.html',
-            controller: 'Hellos as ctrl'
+            controller : 'Hellos as ctrl'
         })
         .when('/signup', {
             templateUrl: 'views/signup.html',
-            controller: 'Sign as ctrl'
+            controller : 'Sign as ctrl'
         })
         .otherwise({
             redirectTo: '/home'
@@ -50,18 +50,18 @@ app.controller('Main', ['ApiFactory', '$rootScope', function (ApiFactory, $rootS
 
 app.controller('Names', ['ApiFactory', function (ApiFactory) {
     var self = this;
-    
+
     self.names = [];
 
     ApiFactory.getNames(function (data) {
         self.names = data;
     })
 
-    
+
 }]);
 app.controller('Hellos', ['ApiFactory', function (ApiFactory) {
     var self = this;
-    
+
     self.hellos = [];
 
     ApiFactory.getHellos(function (data) {
